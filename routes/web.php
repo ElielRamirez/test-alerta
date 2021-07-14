@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Reader;
+use App\Models\Meter;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $meters = Meter::join('readers', 'meters.num_meter', '=', 'readers.num_meter')->get();
+    return view('index')->with('meters',$meters);
 });
 
 

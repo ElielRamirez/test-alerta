@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Reader;
 use App\Models\Meter;
 
@@ -36,11 +37,18 @@ class ReaderController extends Controller
             
         ]);
         if (Meter::where('num_meter', '=', $request->num_meter)->exists()) {
+
             $reader = new Reader();
             $reader->num_meter = $request->num_meter;
             $reader->load_level = $request->load_level;
             $reader->battery_level = $request->battery_level;
             $reader->load_date = now();
+            $meter = DB::table('meters')->where('num_meter', $request->num_meter)->get();
+            if(!$meter[0]->instalation_date){
+                DB::table('meters')
+                    ->where('num_meter', $request->num_meter)
+                    ->update(['instalation_date' => $reader->load_date]);
+            }
             return $reader->save();
          }
         
