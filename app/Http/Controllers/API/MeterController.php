@@ -78,7 +78,7 @@ class MeterController extends Controller
      */
     public function destroy($id)
     {
-        Meter::find($id)->delete();
+        Meter::where('num_meter','=',$id)->delete();
 
         return 204;
     }

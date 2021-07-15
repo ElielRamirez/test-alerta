@@ -10,7 +10,7 @@ $(function() {
             console.log(response);
             $('#readerModal').modal('toggle');
             alert('Actualización exitosa')
-
+             location.reload();
           },
           error:function(xhr, ajaxOptions, thrownError){
               let errors = xhr.responseJSON.errors;

@@ -20,7 +20,10 @@ class CreateReadersTable extends Migration
             $table->smallInteger('load_level');
             $table->timestamp('load_date');
             $table->timestamps();
-            $table->foreign('num_meter')->references('num_meter')->on('meters');
+            $table->foreign('num_meter')
+                ->references('num_meter')
+                ->on('meters')
+                ->onDelete('cascade');
         });
     }
 

@@ -1,47 +1,24 @@
-<!doctype html>
-<html lang="en">
-  <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.main')
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-	<title>Resumen de medición</title>
-	
-  </head>
-  <body>
-	
-  	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-				<ul class="navbar-nav">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-							Medidores
-						</a>
-						<div class="dropdown-menu px-2">
-							<button type="button" class="nav-link dropdown-item btn btn-primary" data-toggle="modal" data-target="#meterModal">
-								Nuevo
-							</button>
-							<button type="button" class="nav-link dropdown-item btn btn-primary" data-toggle="modal" data-target="#readerModal">
-								Lecturas
-							</button>
-						</div>
-						
-					</li>
-					
-				</ul>
-			</div>
-		</div>
-	</nav>           
-		
-	<main class="container">
-		<div class="row">
-			<table id="meters-table" class="table table-striped" style="width:100%">
+@section('title', 'Registro de medidores')
+
+@section('css')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
+<style>
+	.row{
+		width:100%;
+	}
+	.form-inline label {
+    justify-content: right;
+}
+</style>
+@endsection
+
+@section('content')
+	<main class="container mt-5 mx-auto">
+			<table id="meters-table" class="table display table-striped table-bordered dt-responsive " style="width:100%" >
 				<thead>
 					<tr>
 						<th>Medidor</th>
@@ -59,12 +36,18 @@
 						<td>{{$meter->num_meter}}</td>
 						<td>{{$meter->description}}</td>
 						<td>{{$meter->battery_level}}</td>
+						<td>{{$meter->load_date}}</td>
 						@if(!$meter->instalation_date)
 						<td>---</td>
-						@endif
+						@else
 						<td>{{$meter->instalation_date}}</td>
-						<td>{{$meter->type}}</td>
-						<td><button>Eliminar</button><button>Buscar</button></td>
+
+						@endif
+						<td class="text-uppercase">{{$meter->type}}</td>
+						<td>
+							<a class="delete" href="#" data-num-meter="{{$meter->num_meter}}"><i class="fas fa-trash"></i></a>
+							<a href="#"><i class="fas fa-search"></i></a>
+						</td>
 					</tr>
 				@endforeach
 
@@ -82,9 +65,7 @@
 					</tr>
 				</tfoot>
 			</table>
-		</div>
 	</main>
-{{$meters}}
    <!-- Button trigger new meter modal -->
 	<div class="modal fade" id="meterModal" tabindex="-1" role="dialog" aria-labelledby="meterModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -174,9 +155,18 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="{{ asset('/js/app.js') }}"></script>
-	<script src="{{ asset('/js/meter.js') }}"></script>
-	<script src="{{ asset('/js/reader.js') }}"></script>
-  </body>
-</html>
+@endsection
+@section('js')
+<script src='https://code.jquery.com/jquery-3.5.1.js'></script> 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+<script src='https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js'></script> 
+<script src='https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap.min.js'> </script>                   
+<script src='https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js'></script>
+<script src='https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js'></script>
+<script>
+	$(document).ready(function() {
+		$('#meters-table').DataTable();
+	} );
+</script>
+@endsection

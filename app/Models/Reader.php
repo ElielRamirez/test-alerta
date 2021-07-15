@@ -17,6 +17,6 @@ class Reader extends Model
     ];
     public function meters()
     {
-        return $this->hasMany(Meter::class);
+        return $this->belongsTo(Meter::class);
     }
 }

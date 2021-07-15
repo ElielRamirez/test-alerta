@@ -1,8 +1,12 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 use App\Models\Reader;
 use App\Models\Meter;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,10 +19,19 @@ use App\Models\Meter;
 */
 
 Route::get('/', function () {
-    $meters = Meter::join('readers', 'meters.num_meter', '=', 'readers.num_meter')->get();
+    
+    $meters =DB::table('meters')
+        ->leftJoin('readers', function ($join) {
+            $join->on('readers.num_meter', '=', 'meters.num_meter')
+        ->limit(1);
+    })->where('meters.instalation_date','!=', null)->get();
+  
     return view('index')->with('meters',$meters);
 });
-
+Route::get('/meters', function (Request $request) {
+    
+    return view('meters');
+});
 
 Auth::routes();
 

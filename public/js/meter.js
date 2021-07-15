@@ -12,7 +12,7 @@ $(function() {
             console.log(response);
             $('#meterModal').modal('toggle');
             alert('Se creo nuevo medidor')
-
+            location.reload();
           },
           error:function(xhr, ajaxOptions, thrownError){
               let errors = xhr.responseJSON.errors;
@@ -34,6 +34,23 @@ $(function() {
         });
         return false;
     });
+  $('.delete').on('click',function(e){
+    let numMeter =  $(this).data('num-meter');
+    $.ajax({
+      url: `/api/meter/${numMeter}`,
+      type: 'DELETE',
+      success: function(response){
+        
+        alert('se elimino Medidor')
+        location.reload();
 
+      },
+      error:function(xhr, ajaxOptions, thrownError){
+          
+        alert('fallo la eliminacion')
+      }
+
+    });
+  })
 
 });
