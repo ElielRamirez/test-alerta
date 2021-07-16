@@ -143,50 +143,5 @@ Medidores
 
 @section('js')
 
-<script>
-let trigger = () => {
-    $('#edit-meter').on('click', function(e) {
-        const meter = $(this).data('meter');
-        $.ajax({
-            url: `/api/meter/${meter}`,
-            type: 'GET',
-            success: function(response) {
-                console.log(response)
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-            }
 
-        });
-        $('#meterModal').modal('show');
-    });
-}
-$(document).ready(function() {
-    $.ajax({
-        url: '/api/meter',
-        type: 'GET',
-        success: function(response) {
-            let strFields = '';
-            for (const item of response) {
-                strFields += `<tr>
-                            <td>${item.num_meter}</td>
-                            <td>${item.description}</td>
-                            <td>${item.version}</td>
-                            <td class="text-uppercase">${item.type}</td>
-                            <td>${!item.instalation_date? 'Inactivo':item.instalation_date}</td>
-                            <td id="edit-meter" data-meter="${item.num_meter}">
-                                <a href="javascript:;"><i class="fas fa-edit"></i></a>
-                            </td>
-                        </tr>`;
-            }
-            $('#meters-table').prepend(strFields);
-            $('#meters-table').DataTable();
-            trigger();
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-
-        }
-
-    });
-});
-</script>
 @endsection
