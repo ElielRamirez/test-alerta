@@ -172,7 +172,7 @@ $(document).ready(function() {
                             <td>${item.description}</td>
                             <td>${item.version}</td>
                             <td class="text-uppercase">${item.type}</td>
-                            <td>${item.instalation_date}</td>
+                            <td>${!item.instalation_date? 'Inactivo':item.instalation_date}</td>
                             <td id="edit-meter" data-meter="${item.num_meter}">
                                 <a href="javascript:;"><i class="fas fa-edit"></i></a>
                             </td>
