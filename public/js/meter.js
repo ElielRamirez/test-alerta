@@ -2,18 +2,25 @@
 
 $(function() {
   let trigger = () => {
-    $('#edit-meter').on('click', function(e) {
+    $('td#edit-meter').on('click', function(e) {
         const meter = $(this).data('meter');
         $.ajax({
             url: `/api/meter/${meter}`,
             type: 'GET',
             success: function(response) {
+              $('#meterModalLabel').html('Editar Medidor');
+              $('#addMeterForm #num_meter').val(response.num_meter).prop('disabled', true);
+              $('#addMeterForm #description').val(response.description);
+              $('#addMeterForm #version').val(response.version);
+              $('#addMeterForm #type').val(response.type);
+              $('#meterModal').modal('show');
+              
                 console.log(response)
             },
             error: function(xhr, ajaxOptions, thrownError) {}
 
         });
-        $('#meterModal').modal('show');
+        
     });
 }
 $(function() {
@@ -29,8 +36,8 @@ $(function() {
                             <td>${item.version}</td>
                             <td class="text-uppercase">${item.type}</td>
                             <td>${!item.instalation_date? 'Inactivo':item.instalation_date}</td>
-                            <td id="edit-meter" data-meter="${item.num_meter}">
-                                <a href="javascript:;"><i class="fas fa-edit"></i></a>
+                            <td id="edit-meter" data-meter="${item.num_meter} data-toggle="modal" data-target="#meterModal">
+                                <a href="javascript:;" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar"><i class="fas fa-edit"></i></a>
                             </td>
                         </tr>`;
             }
@@ -97,6 +104,13 @@ $(function() {
     })
 });
     
-  
+  $('#closeMeterModal').on('click',function (){
+    $('#meterModal').modal('hide');
+
+  })
+  $('#meterModal button.close').on('click',function (){
+    $('#meterModal').modal('hide');
+
+  })
 
 });

@@ -16,7 +16,7 @@
 
 @section('content')
 <main class="container mt-5 mx-auto">
-    <table id="meters-table" class="table display table-striped table-bordered dt-responsive " style="width:100%">
+    <table id="resume-table" class="table display table-striped table-bordered dt-responsive " style="width:100%">
         <thead>
             <tr>
                 <th>Medidor</th>
@@ -68,7 +68,10 @@
 
 <script>
 $(document).ready(function() {
-    $('#meters-table').DataTable();
+    $('#resume-table').DataTable({
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+
+    });
 });
 </script>
 @endsection

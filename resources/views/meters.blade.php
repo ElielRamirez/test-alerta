@@ -54,7 +54,6 @@ Medidores
             </div>
             <div class="modal-body">
                 <form id="addMeterForm">
-
                     <div class="form-group row">
                         <label for="num_meter" class="col-sm-3 col-form-label"># Medidor</label>
                         <div class="col-sm-9">
@@ -87,7 +86,7 @@ Medidores
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Crear</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="closeMeterModal" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </form>
             </div>
 
@@ -131,7 +130,7 @@ Medidores
                     </div>
 
                     <button type="submit" class="btn btn-primary">Crear</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </form>
             </div>
 

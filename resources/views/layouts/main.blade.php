@@ -55,7 +55,7 @@
     <script src="{{ asset('/js/meter.js') }}"></script>
     <script src="{{ asset('/js/reader.js') }}"></script>
     @yield('js')
-
+   
 </body>
 
 </html>
