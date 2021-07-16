@@ -6,21 +6,15 @@ Medidores
 
 @section('content')
 
-
+<div class="container mt-2">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#meterModal">
+        Nuevo
+    </button>
+    <button type="button" class="ml-2 btn btn-primary" data-toggle="modal" data-target="#readerModal">
+        Lecturas
+    </button>
+</div>
 <main class="container mt-5">
-    <div class="dropdown-menu px-2">
-        <button type="button" class="nav-link dropdown-item btn btn-primary" data-toggle="modal"
-            data-target="#meterModal">
-            Nuevo
-        </button>
-        <button type="button" class="nav-link dropdown-item btn btn-primary" data-toggle="modal"
-            data-target="#readerModal">
-            Lecturas
-        </button>
-        <a href="/meters" class="nav-link dropdown-item btn btn-primary">
-            Stock
-        </a>
-    </div>
     <table id="meters-table" class="display">
         <thead>
             <tr>
@@ -35,6 +29,16 @@ Medidores
         <tbody>
 
         </tbody>
+        <tfooter>
+            <tr>
+                <th>Medidor</th>
+                <th>Descripción</th>
+                <th>Versión</th>
+                <th>Tipo</th>
+                <th>Fecha instalación</th>
+                <th>Acciones</th>
+            </tr>
+        </tfooter>
     </table>
 </main>
 <!-- Button trigger new meter modal -->
@@ -148,11 +152,8 @@ let trigger = () => {
             type: 'GET',
             success: function(response) {
                 console.log(response)
-
-
             },
             error: function(xhr, ajaxOptions, thrownError) {
-
             }
 
         });
@@ -173,7 +174,7 @@ $(document).ready(function() {
                             <td class="text-uppercase">${item.type}</td>
                             <td>${item.instalation_date}</td>
                             <td id="edit-meter" data-meter="${item.num_meter}">
-                                <i class="fas fa-edit"></i>
+                                <a href="javascript:;"><i class="fas fa-edit"></i></a>
                             </td>
                         </tr>`;
             }
