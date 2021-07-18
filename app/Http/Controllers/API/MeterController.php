@@ -64,10 +64,21 @@ class MeterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reader = Meter::findOrFail($id);
-        $reader->update($request->all());
+        $validated = $request->validate([
+            'description'=>'required',
+            'version'=>'required',
+            'type'=>'required|in:mni,mna,mnt', //MNI, MNA, MNT
+            
+        ]);
+        $reader = Meter::find('num_meter','=',$id);
 
-        return $article;
+        $reader->description = $request->description;
+        $reader->version = $request->version;
+        $reader->type = $request->type;
+
+        
+
+        return $reader->save();
     }
 
     /**

@@ -28,6 +28,7 @@ Route::get('/', function () {
   
     return view('index')->with('meters',$meters);
 });
+
 Route::get('/meters', function (Request $request) {
     
     return view('meters');
